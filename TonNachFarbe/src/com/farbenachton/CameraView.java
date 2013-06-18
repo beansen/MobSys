@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
+import android.hardware.Camera.PreviewCallback;
+import android.hardware.Camera.Size;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -32,9 +35,9 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
 		// TODO Auto-generated method stub
 		try{
-		Camera.Parameters parameters = camera.getParameters();
-		parameters.setPreviewSize(arg2, arg3);
-		camera.setParameters(parameters);
+			Camera.Parameters parameters = camera.getParameters();
+			parameters.setPreviewSize(arg2, arg3);
+			camera.setParameters(parameters);
 		} catch (Exception e){
 			Log.w("CameraView", "Exception:", e);
 		}
@@ -59,6 +62,12 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback{
 		camera.stopPreview();
 		camera.release();
 		camera = null;
+	}
+
+	public void setOneShotPreviewCallback(PreviewCallback callback) {
+		if(camera!=null) {
+			camera.setOneShotPreviewCallback(callback);
+		}
 	}
 
 }
