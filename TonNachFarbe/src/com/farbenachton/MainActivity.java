@@ -1,21 +1,31 @@
 package com.farbenachton;
 
+
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ImageFormat;
+import android.graphics.Paint;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.view.Menu;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
 public class MainActivity extends Activity implements Runnable, PreviewCallback{
 
 	CameraView camView;
+	ImageView imageView;
 	TextView test;
 	Handler handler = new Handler();
 	boolean play = false;
@@ -27,11 +37,23 @@ public class MainActivity extends Activity implements Runnable, PreviewCallback{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		mPlayer1= MediaPlayer.create(getApplicationContext(), R.raw.rhythm);
 		mPlayer2= MediaPlayer.create(getApplicationContext(), R.raw.guitar);
 		mPlayer3= MediaPlayer.create(getApplicationContext(), R.raw.song);
 		camView = (CameraView) findViewById(R.id.camera);
-		test = (TextView) findViewById(R.id.textView1);
+		imageView = (ImageView) findViewById(R.id.imageView1);
+		 
+		// Create a simple layout and add our image view to it.
+		/*RelativeLayout layout = new RelativeLayout(this);
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+		LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.CENTER_IN_PARENT);
+		layout.addView(imageView, params);
+		layout.setBackgroundColor(Color.BLACK);
+		 
+		// Show this layout in our activity.
+		setContentView(layout);*/
 		run();
 		
 	}
@@ -79,40 +101,52 @@ public class MainActivity extends Activity implements Runnable, PreviewCallback{
 				if (r < 0) r = 0; else if (r > 262143) r = 262143;
 				if (g < 0) g = 0; else if (g > 262143) g = 262143;
 				if (b < 0) b = 0; else if (b > 262143) b = 262143;
-				/*r = r/1000;
-				g = g/1000;
-				b = b/1000;*/
-				if(r>180000 && b<140000 && g<140000){
+				int c = 0xff000000 | ((r << 6) & 0xff0000) | ((g >> 2) & 0xff00) | ((b >> 10) & 0xff);
+				if(Color.red(c)-(Color.red(c)+Color.green(c)+Color.blue(c))/3 > 50){
 					anzRot++;
 				}
-				if(g>140000 && b<120000 && r<120000){
+				if(Color.green(c)-(Color.red(c)+Color.green(c)+Color.blue(c))/3 > 50){
 					anzGruen++;
 				}
-				if(b>140000 && r<120000 && g<120000){
+				if(Color.blue(c)-(Color.red(c)+Color.green(c)+Color.blue(c))/3 > 50){
 					anzBlau++;
 				}
 			}
 		}
-		if(anzRot > 5 || anzGruen > 5 || anzBlau > 5){
+		/*int width1 = 200;
+		int height1 = 100;
+		 
+		Bitmap bitmap1 = Bitmap.createBitmap(width1, height1, Config.RGB_565);
+		Paint paint = new Paint();
+		paint.setColor(Color.TRANSPARENT);
+		Canvas canvas = new Canvas(bitmap1);
+		canvas.drawRect(0, 0, 100, 100, paint);
+		/*Paint paint2 = new Paint();
+		paint2.setColor(Color.YELLOW);
+		Canvas canvas2 = new Canvas(bitmap1);
+		canvas2.drawRect(10, 10, 50, 100, paint2);
+		
+		imageView.setImageBitmap(bitmap1);*/
+
+		if(anzRot > 100 || anzGruen > 100 || anzBlau > 100){
 			play = true;
 		}
-		if(anzRot <= 5){
+		if(anzRot <= 100){
 			mPlayer1.setVolume(0, 0);
 		}else{
 			mPlayer1.setVolume(1,1);
 		}
-		if(anzBlau <= 5){
+		if(anzBlau <= 100){
 			mPlayer2.setVolume(0, 0);
 		}else{
 			mPlayer2.setVolume(1,1);
 		}
-		if(anzGruen <= 5){
+		if(anzGruen <= 100){
 			mPlayer3.setVolume(0, 0);
 		}else{
 			mPlayer3.setVolume(1,1);
 		}
-		String k = "r:" + anzRot + " g:" + anzGruen + " b:" + anzBlau;
-		test.setText(k);
+
 	}
 
 	@Override
@@ -135,6 +169,7 @@ public class MainActivity extends Activity implements Runnable, PreviewCallback{
 		mPlayer2.stop();
 		mPlayer3.stop();
 	}
+	
 
 
 }
