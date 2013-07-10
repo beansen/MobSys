@@ -4,5 +4,24 @@
     <string name="app_name">Ton nach Farbe</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+     <string-array name="facts_array">
+        <item>Synästhesie: von altgriech synaisthanomai ‚mitempfinden‘ oder ‚zugleich wahrnehmen‘.</item>
+        <item>Synästhesie: Kopplung zweier oder mehrerer physisch getrennter Bereiche der Wahrnehmung.</item>
+        <item>Synästhesie: von altgriech synaisthanomai ‚mitempfinden‘ oder ‚zugleich wahrnehmen‘.</item>
+		<item>Kopplung zweier oder mehrerer physisch getrennter Bereiche der Wahrnehmung.</item>
+		<item>Synästhesien können auch krankheitsbedingt oder drogeninduziert auftreten.</item>
+		<item>Synästhetiker haben also häufig zu einem Sinnesreiz zwei oder mehrere Wahrnehmungen.</item>
+		<item>Synästhesien müssen nicht notwendigerweise mit den fünf Hauptsinnen zu tun haben.</item>
+		<item>Meist wird in sensorische und kognitive Synästhesie unterschieden.</item>
+		<item>Am häufigsten sind Synästhesien, die durch sprachliche Codes ausgelöst werden.</item>
+		<item>Eine Studie zeigt, dass ca. 4 % der Menschen eine Synästhesie haben könnten.</item>
+		<item>Als besondere Form der Synästhesie gibt es die Musik-Farben-Synästhesie.</item>
+		<item>Der Begriff Synästhesie wurde 1866 vom Neurophysiologen Alfred Vulpian erstmals gebraucht.</item>
+		<item>Die Vererbbarkeit von Synästhesie lässt darauf deuten, dass Gene einen Einfluss über die Ausbildung dieses Phänomenes haben.</item>
+		<item>Dieses neurologische Phänomen rührt von einer erweiterten Sinnesverknüpfung im limbischen System her.</item>
+		<item>Die Synästhesie kann sich in verschiedenen Formen präsentieren, auch wird sie von den Personen verschieden wahrgenommen.</item>
+		<item>Das Phänomen der Synästhesie ist seit etwa 300 Jahren bekannt.</item>
+		<item>Frauen sind synästhesiebegünstigter. Das geschätzte Verhältnis beträgt 8:1.</item>
+    </string-array>
 
 </resources>
